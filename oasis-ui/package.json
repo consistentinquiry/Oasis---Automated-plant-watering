@@ -1,0 +1,8 @@
+{
+  "name": "oasis-ui",
+  "version": "1.0.0",
+  "description": "The UI component of the Oasis project.",
+  "main": "index.js",
+  "author": "consistentinquiry",
+  "license": "MIT"
+}

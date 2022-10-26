@@ -17,14 +17,21 @@ public class Plant {
   private String species;
   private int age;
 
+  private String imageUrl;
+
   protected Plant(){
 
   }
 
-  public Plant(String name, String species, int age) {
+  public Plant(String name, String species, int age, String imageUrl) {
     this.name = name;
     this.species = species;
     this.age = age;
+    this.imageUrl = imageUrl;
+  }
+
+  public int getId() {
+    return id;
   }
 
   public String getName() {
@@ -51,25 +58,31 @@ public class Plant {
     this.age = age;
   }
 
-  @Override
-  public boolean equals(Object o) {
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  @Override public boolean equals(Object o) {
     if (this == o)
       return true;
     if (o == null || getClass() != o.getClass())
       return false;
     Plant plant = (Plant) o;
     return id == plant.id && age == plant.age && name.equals(plant.name)
-           && species.equals(plant.species);
+           && species.equals(plant.species) && imageUrl.equals(plant.imageUrl);
   }
 
-  @Override
-  public String toString() {
+  @Override public int hashCode() {
+    return Objects.hash(id, name, species, age, imageUrl);
+  }
+
+  @Override public String toString() {
     return "Plant{" + "id=" + id + ", name='" + name + '\'' + ", species='"
-           + species + '\'' + ", age=" + age + '}';
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name, species, age);
+           + species + '\'' + ", age=" + age + ", imageUrl='" + imageUrl + '\''
+           + '}';
   }
 }
