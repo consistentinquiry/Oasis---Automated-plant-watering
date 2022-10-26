@@ -33,15 +33,15 @@ import org.springframework.stereotype.Service;
       throws PlantNotFoundException {
     final Plant existingPlant = getPlantById(plantId);
 
-    if(name != null){
+    if (name != null) {
       existingPlant.setName(name);
     }
 
-    if(species != null){
+    if (species != null) {
       existingPlant.setSpecies(species);
     }
 
-    if(imageUrl != null){
+    if (imageUrl != null) {
       existingPlant.setImageUrl(imageUrl);
     }
 
@@ -56,7 +56,7 @@ import org.springframework.stereotype.Service;
   private List<Plant> getPlantsByIds(List<Integer> plantIds)
       throws PlantNotFoundException {
     List<Plant> plants = new ArrayList<>();
-    for(int plantId : plantIds){
+    for (int plantId : plantIds) {
       plants.add(plantRepository.getById(plantId));
     }
     return plants;

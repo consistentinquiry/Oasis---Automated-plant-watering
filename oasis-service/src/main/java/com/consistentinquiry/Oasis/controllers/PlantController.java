@@ -90,11 +90,13 @@ import io.swagger.annotations.ApiResponses;
         incomingPlantElement.getImageUrl()));
   }
 
+  //TODO : Updates are not actually updating, find out why.
   @PostMapping(value = PLANT_PATH
                        + "/{id}/updates", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED) @ApiOperation(value = "Update a plant")
-  @ApiResponses(@ApiResponse(code = 201, message = "Plant updated."),
-      @ApiResponse(code = 404, message = "Plant not found"))
+  @ApiResponses({
+      @ApiResponse(code = 201, message = "Plant updated."),
+      @ApiResponse(code = 404, message = "Plant not found") })
   public void updatePlant(
       @PathVariable("id") String id, @RequestBody IncomingPlantElement plant)
       throws BadRequestException {
@@ -121,7 +123,7 @@ import io.swagger.annotations.ApiResponses;
     }
   }
 
-//TODO : delete plant endpoint
+  //TODO : Delete plant endpoint and repository
 /*
   @DeleteMapping(value = PLANT_PATH + "/{id}/")
   @ResponseStatus(HttpStatus.ACCEPTED)
