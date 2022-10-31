@@ -47,7 +47,7 @@ public interface PlantService {
       throws PlantNotFoundException;
 
   /**
-   * Returns the payment plant with the given ID
+   * Returns the plant with the given ID
    *
    * @param plantId the ID of the plant to return
    * @return the plant by the given ID

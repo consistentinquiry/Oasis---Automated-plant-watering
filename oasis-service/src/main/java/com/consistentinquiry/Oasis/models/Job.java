@@ -27,6 +27,10 @@ public class Job {
     this.jobCreationDateTime = jobCreationDateTime;
   }
 
+  public int getId() {
+    return id;
+  }
+
   public LocalDateTime getJobCreationDateTime() {
     return jobCreationDateTime;
   }

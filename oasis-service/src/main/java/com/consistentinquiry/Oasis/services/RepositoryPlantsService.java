@@ -53,7 +53,7 @@ import org.springframework.stereotype.Service;
     return plantRepository.getById(plantId);
   }
 
-  private List<Plant> getPlantsByIds(List<Integer> plantIds)
+  public List<Plant> getPlantsByIds(List<Integer> plantIds)
       throws PlantNotFoundException {
     List<Plant> plants = new ArrayList<>();
     for (int plantId : plantIds) {
