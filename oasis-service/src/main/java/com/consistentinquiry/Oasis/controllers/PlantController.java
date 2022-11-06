@@ -93,7 +93,7 @@ import io.swagger.annotations.ApiResponses;
   //TODO : Updates are not actually updating, find out why.
   @PostMapping(value = PLANT_PATH
                        + "/{id}/updates", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-  @ResponseStatus(HttpStatus.CREATED) @ApiOperation(value = "Update a plant")
+  @ResponseStatus(HttpStatus.ACCEPTED) @ApiOperation(value = "Update a plant")
   @ApiResponses({
       @ApiResponse(code = 201, message = "Plant updated."),
       @ApiResponse(code = 404, message = "Plant not found") })
