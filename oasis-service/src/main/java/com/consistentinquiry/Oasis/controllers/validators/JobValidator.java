@@ -1,4 +1,4 @@
-package com.consistentinquiry.Oasis.controllers;
+package com.consistentinquiry.Oasis.controllers.validators;
 
 import static com.consistentinquiry.Oasis.controllers.validators.utils.Preconditions.checkNotEmpty;
 import static com.consistentinquiry.Oasis.controllers.validators.utils.Preconditions.checkNotNull;
@@ -12,6 +12,9 @@ import com.consistentinquiry.Oasis.models.Job;
 import com.consistentinquiry.Oasis.models.elements.IncomingJobElement;
 import com.consistentinquiry.Oasis.models.elements.IncomingPlantElement;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class JobValidator
     implements Validator<IncomingJobElement> {
 

@@ -11,7 +11,9 @@ import com.consistentinquiry.Oasis.repositories.JobRepository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RepositoryJobService
     implements JobService {
 

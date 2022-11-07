@@ -4,19 +4,16 @@ import static com.consistentinquiry.Oasis.controllers.validators.utils.Precondit
 import static com.consistentinquiry.Oasis.models.messages.EntityPageElement.fromPage;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.consistentinquiry.Oasis.controllers.validators.JobValidator;
 import com.consistentinquiry.Oasis.exceptions.BadRequestException;
 import com.consistentinquiry.Oasis.exceptions.InvalidIDException;
 import com.consistentinquiry.Oasis.exceptions.JobNotFoundException;
 import com.consistentinquiry.Oasis.exceptions.NotFoundException;
-import com.consistentinquiry.Oasis.exceptions.ValidationFailedException;
 import com.consistentinquiry.Oasis.models.Frequencies;
-import com.consistentinquiry.Oasis.models.Job;
 import com.consistentinquiry.Oasis.models.elements.IncomingJobElement;
 import com.consistentinquiry.Oasis.models.elements.OutgoingJobElement;
-import com.consistentinquiry.Oasis.models.elements.OutgoingPlantElement;
 import com.consistentinquiry.Oasis.models.messages.EntityPageElement;
 import com.consistentinquiry.Oasis.services.JobService;
 import com.consistentinquiry.Oasis.utils.IntegerIDConverter;
@@ -28,15 +25,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-public class JobController {
+@RestController public class JobController {
 
   private static final String JOB_PATH = "/jobs";
 
@@ -50,7 +47,7 @@ public class JobController {
   }
 
 
-  @GetMapping(value = "/jobs/{id}", produces = APPLICATION_JSON_VALUE)
+  @GetMapping(value = JOB_PATH + "/{id}", produces = APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   @ApiOperation(value = "Get a specific job.", code = 200)
   public OutgoingJobElement getJob(@PathVariable("id") String id) {
@@ -80,12 +77,12 @@ public class JobController {
   @ApiOperation(value = "Add a new job.", response = OutgoingJobElement.class, code = 201)
   @ApiResponses({ @ApiResponse(code = 201, message = "Job created.") })
   public OutgoingJobElement addJob(
-      @ApiParam(value = "A new plant.") IncomingJobElement incomingJobElement)
+      @RequestBody IncomingJobElement incomingJobElement)
       throws BadRequestException {
 
     jobValidator.validate(incomingJobElement);
 
-    return OutgoingJobElement.fromModel(jobService.createJob(Frequencies.valueOf(
+    return OutgoingJobElement.fromModelWithoutLastRunTime(jobService.createJob(Frequencies.valueOf(
                                                                  incomingJobElement.getFrequency()),
                                                              LocalDateTime.parse(
                                                                  incomingJobElement.getJobCreationDateTime())));
@@ -93,7 +90,7 @@ public class JobController {
 
 
   @PostMapping(value = JOB_PATH
-                       + "{id}/updates", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+                       + "/{id}/updates", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.ACCEPTED) @ApiOperation(value = "Update a job")
   @ApiResponses({
       @ApiResponse(code = 201, message = "Job updated."),

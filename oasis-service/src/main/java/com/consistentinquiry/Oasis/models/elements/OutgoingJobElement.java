@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.consistentinquiry.Oasis.models.Job;
+import com.consistentinquiry.Oasis.utils.DateToStrConverter;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,12 +37,24 @@ public class OutgoingJobElement {
     this.lastRunTime = lastRunTime;
   }
 
+  public OutgoingJobElement(
+      String id, String frequency, String jobCreationDateTime) {
+    this.id = id;
+    this.frequency = frequency;
+    this.jobCreationDateTime = jobCreationDateTime;
+  }
 
   public static OutgoingJobElement fromModel(Job job) {
     return new OutgoingJobElement(String.valueOf(job.getId()),
-                                  job.getFrequency().name(),
+                                  String.valueOf(job.getFrequency()),
                                   job.getJobCreationDateTime().toString(),
-                                  job.getLastRunTime().toString());
+                                  DateToStrConverter.convert(job.getLastRunTime()));
+  }
+
+  public static OutgoingJobElement fromModelWithoutLastRunTime(Job job) {
+    return new OutgoingJobElement(String.valueOf(job.getId()),
+                                  String.valueOf(job.getFrequency()),
+                                  job.getJobCreationDateTime().toString());
   }
 
   public static List<OutgoingJobElement> fromModelList(List<Job> jobs) {

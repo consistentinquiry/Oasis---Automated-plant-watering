@@ -3,7 +3,6 @@ package com.consistentinquiry.Oasis.services;
 import java.time.LocalDateTime;
 
 import com.consistentinquiry.Oasis.exceptions.JobNotFoundException;
-import com.consistentinquiry.Oasis.exceptions.PlantNotFoundException;
 import com.consistentinquiry.Oasis.models.Frequencies;
 import com.consistentinquiry.Oasis.models.Job;
 
