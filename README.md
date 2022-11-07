@@ -6,7 +6,7 @@ The user can create watering "jobs" and schedule them to run periodically.
 Future features may include integration with a weather service to influence watering frequency.
 
 ## Components (inc. planned):
-- 🛠️ Oasis Service - A Spring Web service that provides the API.
+- 🛠️ Oasis Service - A Spring Web service that provides the REST API.
 - 💻 Oasis UI - A React based front end that will provide a user friendly way of creating and maintaining jobs
 - 📱 Oasis Android App (TODO) - An application for Android devices that provides an Android native way of creating and maintaining jobs.
 - 🕵🏿 Oasis Agent (TODO) - Manages and configures Python scripts that control the Pi itself. Will be controlled by the service.
