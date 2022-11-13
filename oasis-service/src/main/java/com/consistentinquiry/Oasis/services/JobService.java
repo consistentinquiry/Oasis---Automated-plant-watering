@@ -60,9 +60,9 @@ public interface JobService {
    * Deletes the job with the given ID
    *
    * @param id of the job to be deleted.
-   *
+   * @return true or false depending on whether the operation was successful.
    * @throws JobNotFoundException if the given job id does not exist.
   * */
-  void deleteJobById(Integer id) throws JobNotFoundException;
+  boolean deleteJobById(Integer id) throws JobNotFoundException;
 
 }

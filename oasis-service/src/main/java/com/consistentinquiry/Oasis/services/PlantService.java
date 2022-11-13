@@ -52,4 +52,13 @@ public interface PlantService {
    */
   Plant getPlantById(int plantId)
       throws PlantNotFoundException;
+
+
+  /**
+   * Deletes the plant with the given ID
+   *
+   * @param plantId of the plant to delete
+   * @return true or false depending on whether the operation was successful.
+   */
+  boolean deletePlant(int plantId);
 }

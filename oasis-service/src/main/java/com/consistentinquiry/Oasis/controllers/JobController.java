@@ -21,6 +21,7 @@ import com.consistentinquiry.Oasis.utils.IntegerIDConverter;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,10 +84,9 @@ import io.swagger.annotations.ApiResponses;
 
     jobValidator.validate(incomingJobElement);
 
-    return OutgoingJobElement.fromModelWithoutLastRunTime(jobService.createJob(Frequencies.valueOf(
-                                                                 incomingJobElement.getFrequency()),
-                                                             LocalDateTime.parse(
-                                                                 incomingJobElement.getJobCreationDateTime())));
+    return OutgoingJobElement.fromModelWithoutLastRunTime(jobService.createJob(
+        Frequencies.valueOf(incomingJobElement.getFrequency()),
+        LocalDateTime.parse(incomingJobElement.getJobCreationDateTime())));
   }
 
 
@@ -112,15 +112,15 @@ import io.swagger.annotations.ApiResponses;
 
     LocalDateTime lastRunTime;
     Frequencies frequency;
-    try{
+    try {
       lastRunTime = LocalDateTime.parse(job.getLastRunTime());
-    } catch (NullPointerException e){
+    } catch (NullPointerException e) {
       lastRunTime = null;
     }
 
     try {
       frequency = Frequencies.valueOf(job.getFrequency());
-    } catch (NullPointerException e){
+    } catch (NullPointerException e) {
       frequency = null;
     }
 
@@ -133,6 +133,29 @@ import io.swagger.annotations.ApiResponses;
     }
   }
 
-  //TODO - Delete a job endpoint
+  @PostMapping(value = JOB_PATH + "/{id}/delete")
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  @ApiOperation(value = "Delete a job", code = 202) @ApiResponses({
+      @ApiResponse(code = 202, message = "Job deleted"),
+      @ApiResponse(code = 404, message = "Job not found") })
+  public ResponseEntity<Integer> deleteJob(@PathVariable("id") String id)
+      throws BadRequestException {
 
+    checkNotNull(id, "jobId");
+    IntegerIDConverter integerIDConverter = new IntegerIDConverter(id);
+
+    final Integer jobId;
+    try {
+      jobId = integerIDConverter.getInteger();
+    } catch (InvalidIDException e) {
+      throw new BadRequestException("The id: " + id + " is invalid.");
+    }
+
+    try {
+      jobService.deleteJobById(jobId);
+      return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    } catch (JobNotFoundException e){
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    }
+  }
 }

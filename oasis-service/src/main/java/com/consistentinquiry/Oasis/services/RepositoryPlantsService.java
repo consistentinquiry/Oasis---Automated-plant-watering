@@ -61,4 +61,15 @@ import org.springframework.stereotype.Service;
     }
     return plants;
   }
+
+  @Override
+  public boolean deletePlant(int id) {
+    try {
+      Plant plant = getPlantById(id);
+      plantRepository.delete(plant);
+      return true;
+    } catch (PlantNotFoundException e) {
+      return false;
+    }
+  }
 }

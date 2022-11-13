@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.consistentinquiry.Oasis.exceptions.JobNotFoundException;
+import com.consistentinquiry.Oasis.exceptions.PlantNotFoundException;
 import com.consistentinquiry.Oasis.models.Frequencies;
 import com.consistentinquiry.Oasis.models.Job;
+import com.consistentinquiry.Oasis.models.Plant;
 import com.consistentinquiry.Oasis.repositories.JobRepository;
 
 import org.springframework.data.domain.Page;
@@ -54,10 +56,14 @@ public class RepositoryJobService
     return jobRepository.getById(jobId);
   }
 
-  @Override public void deleteJobById(Integer id)
-      throws JobNotFoundException {
-    final Job jobToDelete = jobRepository.getById(id);
-    jobRepository.delete(jobToDelete);
+  @Override public boolean deleteJobById(Integer id) {
+    try {
+      Job plant = getJobById(id);
+      jobRepository.delete(plant);
+      return true;
+    } catch (JobNotFoundException e) {
+      return false;
+    }
   }
 
   public List<Job> getAllJobsByIds(List<Integer> jobIds)
@@ -68,4 +74,6 @@ public class RepositoryJobService
     }
     return jobsList;
   }
+
+
 }

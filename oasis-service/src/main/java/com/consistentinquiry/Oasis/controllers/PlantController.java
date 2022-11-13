@@ -20,6 +20,7 @@ import com.consistentinquiry.Oasis.utils.IntegerIDConverter;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -123,13 +124,12 @@ import io.swagger.annotations.ApiResponses;
   }
 
   //TODO : Delete plant endpoint and repository
-/*
-  @DeleteMapping(value = PLANT_PATH + "/{id}/")
+  @PostMapping(value = PLANT_PATH + "/{id}/delete")
   @ResponseStatus(HttpStatus.ACCEPTED)
   @ApiOperation(value = "Delete a plant", code = 202) @ApiResponses({
       @ApiResponse(code = 202, message = "Plant deleted"),
       @ApiResponse(code = 404, message = "Plant not found") })
-  public void deletePlant( @PathVariable("id") String id)
+  public ResponseEntity<Integer> deletePlant(@PathVariable("id") String id)
       throws BadRequestException {
 
     checkNotNull(id, "plantId");
@@ -142,8 +142,11 @@ import io.swagger.annotations.ApiResponses;
       throw new BadRequestException("The id: " + id + " is invalid.");
     }
 
-    try{
+    if(plantService.deletePlant(plantId)){
+      return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+    else {
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
   }
-*/
 }
