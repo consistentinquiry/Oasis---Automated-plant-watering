@@ -45,7 +45,7 @@ public class RepositoryJobService
     if (frequency != null) {
       existingJob.setFrequency(frequency);
     }
-
+    jobRepository.save(existingJob);
     return existingJob;
   }
 

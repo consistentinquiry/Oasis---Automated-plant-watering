@@ -12,10 +12,9 @@ public interface PlantService {
    *
    * @param name     The name of the plant, yes plants obviously have names
    * @param species  The species of the plant
-   * @param age      The age of the plant
    * @param imageUrl The url to the associated image
    **/
-  Plant createPlant(String name, String species, int age, String imageUrl);
+  Plant createPlant(String name, String species, String imageUrl);
 
   /**
    * Queries all plants.
@@ -35,14 +34,12 @@ public interface PlantService {
    * @param plantId  The id of the plant to update
    * @param name     The name of the plant to update
    * @param species  The species of the plant to update
-   * @param age      The age of the plant to update
    * @param imageUrl The url to the associated image to update
    **/
   Plant updatePlant(
       int plantId,
       String name,
       String species,
-      int age,
       String imageUrl)
       throws PlantNotFoundException;
 

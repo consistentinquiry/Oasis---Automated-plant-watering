@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
   }
 
   @Override public Plant createPlant(
-      String name, String species, int age, String imageUrl) {
-    return plantRepository.save(new Plant(name, species, age, imageUrl));
+      String name, String species, String imageUrl) {
+    return plantRepository.save(new Plant(name, species, imageUrl));
   }
 
   @Override public Page<Plant> queryPlants(Pageable pageable) {
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
   }
 
   @Override public Plant updatePlant(
-      int plantId, String name, String species, int age, String imageUrl)
+      int plantId, String name, String species, String imageUrl)
       throws PlantNotFoundException {
     final Plant existingPlant = getPlantById(plantId);
 
@@ -44,7 +44,7 @@ import org.springframework.stereotype.Service;
     if (imageUrl != null) {
       existingPlant.setImageUrl(imageUrl);
     }
-
+    plantRepository.save(existingPlant);
     return existingPlant;
   }
 

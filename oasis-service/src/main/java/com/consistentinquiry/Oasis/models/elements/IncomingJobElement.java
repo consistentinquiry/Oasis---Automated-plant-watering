@@ -14,12 +14,21 @@ public class IncomingJobElement {
   @ApiModelProperty("The creation date and time of this job")
   private String jobCreationDateTime;
 
+  private String lastRunTime;
+
   public IncomingJobElement() {
   }
 
   public IncomingJobElement(String frequency, String jobCreationDateTime) {
     this.frequency = frequency;
     this.jobCreationDateTime = jobCreationDateTime;
+  }
+
+  public IncomingJobElement(
+      String frequency, String jobCreationDateTime, String lastRunTime) {
+    this.frequency = frequency;
+    this.jobCreationDateTime = jobCreationDateTime;
+    this.lastRunTime = lastRunTime;
   }
 
   public String getFrequency() {
@@ -38,6 +47,14 @@ public class IncomingJobElement {
     this.jobCreationDateTime = jobCreationDateTime;
   }
 
+  public String getLastRunTime() {
+    return lastRunTime;
+  }
+
+  public void setLastRunTime(String lastRunTime) {
+    this.lastRunTime = lastRunTime;
+  }
+
   @Override public boolean equals(Object o) {
     if (this == o)
       return true;
@@ -45,15 +62,17 @@ public class IncomingJobElement {
       return false;
     IncomingJobElement that = (IncomingJobElement) o;
     return frequency.equals(that.frequency)
-           && jobCreationDateTime.equals(that.jobCreationDateTime);
+           && jobCreationDateTime.equals(that.jobCreationDateTime)
+           && lastRunTime.equals(that.lastRunTime);
   }
 
   @Override public int hashCode() {
-    return Objects.hash(frequency, jobCreationDateTime);
+    return Objects.hash(frequency, jobCreationDateTime, lastRunTime);
   }
 
   @Override public String toString() {
     return "IncomingJobElement{" + "frequency='" + frequency + '\''
-           + ", jobCreationDateTime='" + jobCreationDateTime + '\'' + '}';
+           + ", jobCreationDateTime='" + jobCreationDateTime + '\''
+           + ", lastRunTime='" + lastRunTime + '\'' + '}';
   }
 }

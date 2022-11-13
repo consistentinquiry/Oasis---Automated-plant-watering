@@ -5,6 +5,7 @@ import static com.consistentinquiry.Oasis.models.messages.EntityPageElement.from
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import com.consistentinquiry.Oasis.controllers.validators.JobValidator;
 import com.consistentinquiry.Oasis.exceptions.BadRequestException;
@@ -109,11 +110,25 @@ import io.swagger.annotations.ApiResponses;
       throw new BadRequestException("The id: " + id + " is invalid");
     }
 
+    LocalDateTime lastRunTime;
+    Frequencies frequency;
+    try{
+      lastRunTime = LocalDateTime.parse(job.getLastRunTime());
+    } catch (NullPointerException e){
+      lastRunTime = null;
+    }
+
+    try {
+      frequency = Frequencies.valueOf(job.getFrequency());
+    } catch (NullPointerException e){
+      frequency = null;
+    }
+
     try {
       OutgoingJobElement.fromModel(jobService.updateJob(jobId,
-                                                        LocalDateTime.parse(job.getJobCreationDateTime()),
-                                                        Frequencies.valueOf(job.getFrequency())));
-    } catch (JobNotFoundException e) {
+                                                        lastRunTime,
+                                                        frequency));
+    } catch (Exception e) {
       throw new NotFoundException(e);
     }
   }

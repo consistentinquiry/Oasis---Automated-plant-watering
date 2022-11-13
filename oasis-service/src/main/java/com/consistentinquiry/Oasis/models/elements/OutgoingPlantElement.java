@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.consistentinquiry.Oasis.models.Job;
 import com.consistentinquiry.Oasis.models.Plant;
+import com.consistentinquiry.Oasis.utils.DateToStrConverter;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +20,6 @@ public class OutgoingPlantElement {
 
   @ApiModelProperty("The species of this plant") private String species;
 
-  @ApiModelProperty("The age of this plant") private String age;
 
   @ApiModelProperty("The url of the image of this plant") private String
       imageUrl;
@@ -27,27 +28,25 @@ public class OutgoingPlantElement {
 
   }
 
+  public OutgoingPlantElement(String name, String species, String imageUrl) {
+    this.name = name;
+    this.species = species;
+    this.imageUrl = imageUrl;
+  }
+
   public OutgoingPlantElement(
-      String id, String name, String species, String age, String imageUrl) {
+      String id, String name, String species, String imageUrl) {
     this.id = id;
     this.name = name;
     this.species = species;
-    this.age = age;
     this.imageUrl = imageUrl;
   }
 
   public static OutgoingPlantElement fromModel(Plant plant) {
     return new OutgoingPlantElement(String.valueOf(plant.getId()),
-                                    plant.getName(),
-                                    plant.getSpecies(),
-                                    String.valueOf(plant.getAge()),
-                                    plant.getImageUrl());
-  }
-
-  public static List<OutgoingPlantElement> fromModelList(List<Plant> plants) {
-    return plants.stream()
-                 .map(OutgoingPlantElement::fromModel)
-                 .collect(Collectors.toList());
+                                  String.valueOf(plant.getName()),
+                                  String.valueOf(plant.getSpecies()),
+                                  String.valueOf(plant.getImageUrl()));
   }
 
   public String getId() {
@@ -74,14 +73,6 @@ public class OutgoingPlantElement {
     this.species = species;
   }
 
-  public String getAge() {
-    return age;
-  }
-
-  public void setAge(String age) {
-    this.age = age;
-  }
-
   public String getImageUrl() {
     return imageUrl;
   }
@@ -97,17 +88,16 @@ public class OutgoingPlantElement {
       return false;
     OutgoingPlantElement that = (OutgoingPlantElement) o;
     return id.equals(that.id) && name.equals(that.name)
-           && species.equals(that.species) && age.equals(that.age)
-           && imageUrl.equals(that.imageUrl);
+           && species.equals(that.species) && imageUrl.equals(that.imageUrl);
   }
 
   @Override public int hashCode() {
-    return Objects.hash(id, name, species, age, imageUrl);
+    return Objects.hash(id, name, species, imageUrl);
   }
 
   @Override public String toString() {
     return "OutgoingPlantElement{" + "id='" + id + '\'' + ", name='" + name
-           + '\'' + ", species='" + species + '\'' + ", age='" + age + '\''
-           + ", imageUrl='" + imageUrl + '\'' + '}';
+           + '\'' + ", species='" + species + '\'' + ", imageUrl='" + imageUrl
+           + '\'' + '}';
   }
 }

@@ -14,9 +14,6 @@ public class IncomingPlantElement {
   @ApiModelProperty("The species of this plant")
   private String species;
 
-  @ApiModelProperty("The age of this plant")
-  private String age;
-
   @ApiModelProperty("The url of the image of this plant")
   private String imageUrl;
 
@@ -24,11 +21,9 @@ public class IncomingPlantElement {
 
   }
 
-  public IncomingPlantElement(
-      String name, String species, String age, String imageUrl) {
+  public IncomingPlantElement(String name, String species, String imageUrl) {
     this.name = name;
     this.species = species;
-    this.age = age;
     this.imageUrl = imageUrl;
   }
 
@@ -48,14 +43,6 @@ public class IncomingPlantElement {
     this.species = species;
   }
 
-  public String getAge() {
-    return age;
-  }
-
-  public void setAge(String age) {
-    this.age = age;
-  }
-
   public String getImageUrl() {
     return imageUrl;
   }
@@ -70,17 +57,16 @@ public class IncomingPlantElement {
     if (o == null || getClass() != o.getClass())
       return false;
     IncomingPlantElement that = (IncomingPlantElement) o;
-    return name.equals(that.name) && species.equals(that.species) && age.equals(
-        that.age) && imageUrl.equals(that.imageUrl);
+    return name.equals(that.name) && species.equals(that.species)
+           && imageUrl.equals(that.imageUrl);
   }
 
   @Override public int hashCode() {
-    return Objects.hash(name, species, age, imageUrl);
+    return Objects.hash(name, species, imageUrl);
   }
 
   @Override public String toString() {
     return "IncomingPlantElement{" + "name='" + name + '\'' + ", species='"
-           + species + '\'' + ", age='" + age + '\'' + ", imageUrl='" + imageUrl
-           + '\'' + '}';
+           + species + '\'' + ", imageUrl='" + imageUrl + '\'' + '}';
   }
 }

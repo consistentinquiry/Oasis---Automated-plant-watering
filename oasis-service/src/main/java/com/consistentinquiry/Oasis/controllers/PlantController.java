@@ -4,6 +4,8 @@ import static com.consistentinquiry.Oasis.controllers.validators.utils.Precondit
 import static com.consistentinquiry.Oasis.models.messages.EntityPageElement.fromPage;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import java.util.Optional;
+
 import com.consistentinquiry.Oasis.controllers.validators.PlantValidator;
 import com.consistentinquiry.Oasis.exceptions.BadRequestException;
 import com.consistentinquiry.Oasis.exceptions.InvalidIDException;
@@ -86,7 +88,6 @@ import io.swagger.annotations.ApiResponses;
     return OutgoingPlantElement.fromModel(plantService.createPlant(
         incomingPlantElement.getName(),
         incomingPlantElement.getSpecies(),
-        Integer.parseInt(incomingPlantElement.getAge()),
         incomingPlantElement.getImageUrl()));
   }
 
@@ -115,8 +116,6 @@ import io.swagger.annotations.ApiResponses;
       OutgoingPlantElement.fromModel(plantService.updatePlant(plantId,
                                                               plant.getName(),
                                                               plant.getSpecies(),
-                                                              Integer.parseInt(
-                                                                  plant.getAge()),
                                                               plant.getImageUrl()));
     } catch (PlantNotFoundException e) {
       throw new NotFoundException(e);

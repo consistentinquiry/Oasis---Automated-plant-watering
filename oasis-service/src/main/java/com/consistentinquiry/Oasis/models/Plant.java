@@ -15,7 +15,6 @@ public class Plant {
   private int id;
   private String name;
   private String species;
-  private int age;
 
   private String imageUrl;
 
@@ -23,15 +22,18 @@ public class Plant {
 
   }
 
-  public Plant(String name, String species, int age, String imageUrl) {
+  public Plant(String name, String species, String imageUrl) {
     this.name = name;
     this.species = species;
-    this.age = age;
     this.imageUrl = imageUrl;
   }
 
   public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -50,14 +52,6 @@ public class Plant {
     this.species = species;
   }
 
-  public int getAge() {
-    return age;
-  }
-
-  public void setAge(int age) {
-    this.age = age;
-  }
-
   public String getImageUrl() {
     return imageUrl;
   }
@@ -72,17 +66,16 @@ public class Plant {
     if (o == null || getClass() != o.getClass())
       return false;
     Plant plant = (Plant) o;
-    return id == plant.id && age == plant.age && name.equals(plant.name)
+    return id == plant.id && name.equals(plant.name)
            && species.equals(plant.species) && imageUrl.equals(plant.imageUrl);
   }
 
   @Override public int hashCode() {
-    return Objects.hash(id, name, species, age, imageUrl);
+    return Objects.hash(id, name, species, imageUrl);
   }
 
   @Override public String toString() {
     return "Plant{" + "id=" + id + ", name='" + name + '\'' + ", species='"
-           + species + '\'' + ", age=" + age + ", imageUrl='" + imageUrl + '\''
-           + '}';
+           + species + '\'' + ", imageUrl='" + imageUrl + '\'' + '}';
   }
 }

@@ -22,9 +22,5 @@ public class PlantValidator implements Validator<IncomingPlantElement>{
    checkNotNull(createPlantDTO.getSpecies(), "species");
    checkNotNull(createPlantDTO.getSpecies(), "species");
    checkNotExclusiveWhitespaces(createPlantDTO.getSpecies(), "species");
-
-   checkNotNull(createPlantDTO.getSpecies(), "age");
-   checkNotEmpty(createPlantDTO.getAge(), "age");
-   checkNotExclusiveWhitespaces(createPlantDTO.getSpecies(), "age");
   }
 }
