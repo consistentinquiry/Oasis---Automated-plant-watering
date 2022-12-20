@@ -4,7 +4,7 @@ import {Actions, PayloadAction} from "@reduxjs/toolkit";
 
 const defaultState = {jobs: {}};
 
-export default function JobReducers(state = defaultState, action: PayloadAction) {
+export default function JobReducers(state = defaultState, action: Action<any>) {
     switch(action.type){
         case GET_JOB:
             return {

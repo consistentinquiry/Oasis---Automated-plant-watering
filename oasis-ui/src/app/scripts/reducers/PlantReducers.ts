@@ -4,7 +4,7 @@ import {Action} from "../utils/ActionTypeUtils";
 
 const defaultState = {plants: {}};
 
-export default function PlantReducers (state = defaultState, action: Action<string>) {
+export default function PlantReducers(state = defaultState, action: Action<any>) {
     switch(action.type){
         case GET_PLANT:
             return {
